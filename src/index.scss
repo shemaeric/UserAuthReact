@@ -15,6 +15,15 @@ code {
   .logo img {
     width: 40px;
   }
+
+  .user-avatar {
+    border: none;
+    outline: none;
+  }
+  .user-avatar :focus {
+    border: none;
+    outline: none;
+  }
   .user-avatar img {
     cursor: pointer;
     width: 40px;
@@ -151,4 +160,18 @@ code {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 10px solid black;
+}
+
+.large-text {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.medium-text {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.logout-btn {
+  border: none;
 }

@@ -2,9 +2,12 @@ import React, {Fragment, Component} from 'react';
 import avatar from '../assets/logo192.png'
 
 class Navbar extends Component {
-  state = {
-    dropdown: false
-  };
+    constructor(props){
+        super(props)
+        this.state = {
+            dropdown: false
+          };
+    }
 
   dropdown = () => {
     this.setState({ dropdown: true });
@@ -13,6 +16,10 @@ class Navbar extends Component {
   dropAway = () => {
     this.setState({ dropdown: false });
   };
+
+  logout = () => {
+      localStorage.removeItem("token");
+  }
 
   render() {
     const { dropdown } = this.state;
@@ -25,18 +32,15 @@ class Navbar extends Component {
           <div className="logo">
             <img src={avatar} alt="" />
           </div>
-          <div
-            className="user-avatar"
-            onMouseEnter={this.dropdown}
-            onMouseLeave={this.dropAway}
-          >
-            <img src={avatar} alt="" />
-          </div>
+          <button
+          className="user-avatar"
+          onClick={this.dropdown}
+          ><img src={avatar} alt="" /></button>
         </nav>
         ​{/* Make this a component too */}
-        <section className={`${logoutDropdown} shadow-sm rounded`}>
+        <section className={`${logoutDropdown} shadow-sm rounded`} onMouseLeave={this.dropAway}>
           <div className="logout">
-            <span>logout</span> <i className="zmdi zmdi-minus-circle"></i>
+            <button className="logout-btn" onClick={this.logout}>logout</button> <i className="zmdi zmdi-minus-circle"></i>
           </div>
         </section>
       </Fragment>

@@ -1,19 +1,40 @@
-import React, {Fragment, Component} from 'react';
-import { Link } from 'react-router-dom';
-import Navabar from './Navbar';
+import React, { Fragment, Component } from "react";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { connect } from "react-redux";
+import Navabar from "./Navbar";
+import { login } from "../redux/action-creators";
 
 class Login extends Component {
   state = {
-    dropdown: false
+    email: "",
+    password: ""
   };
 
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  notifyInputs = (message) => toast.info(message);
+
+  onsubmit = async e => {
+    e.preventDefault();
+    const { email, password } = this.state;
+    const { login } = this.props;
+    if (email === "" || password === "") {
+      this.notifyInputs("Email and Password must not be empty");
+    } else {
+      await login({ email, password });
+      this.props.error === "" ? this.props.history.push("/s") : this.notifyInputs(this.props.error);
+    }
+  };
 
   render() {
+    const { email, password } = this.state;
     return (
       <Fragment>
         {/* Use the Navbar Component */}
-        <Navabar/>
-        ​{/* Make this a component too */}
+        <Navabar />​{/* Make this a component too */}
         <main>
           <div className="main-container">
             <div className="card-container shadow rounded-lg">
@@ -24,19 +45,31 @@ class Login extends Component {
                   </li>
                   <li>
                     <div className="get-started">
-                        <Link to="/signup">Get Started</Link>
+                      <Link to="/signup">Get Started</Link>
                     </div>
                   </li>
                 </ul>
               </div>
               <section className="login-form">
                 <div className="email-login">
-                  <input type="email" placeholder="email" />
+                  <input 
+                    type="email" 
+                    name="email" 
+                    placeholder="email" 
+                    onChange={this.onChange}
+                    value={email}
+                />
                 </div>
                 <div className="password-login">
-                  <input type="password" placeholder="password" />
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="password"
+                    onChange={this.onChange}
+                    value={password}
+                  />
                 </div>
-                <button className="btn btn-primary login-button">Login</button>
+                <button onClick={this.onsubmit} className="btn btn-primary login-button">Login</button>
               </section>
             </div>
           </div>
@@ -46,4 +79,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+    user: state.user,
+    error: state.user.error
+  });
+  
+  export default connect(
+    mapStateToProps,
+    { login }
+  )(Login);
