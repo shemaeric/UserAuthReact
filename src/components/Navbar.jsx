@@ -27,7 +27,6 @@ class Navbar extends Component {
 
   render() {
     const { dropdown } = this.state;
-    console.log(this.props);
     const logoutDropdown =
       dropdown === true ? "logout-dropdown" : "logout-dropdown-none";
     return (
