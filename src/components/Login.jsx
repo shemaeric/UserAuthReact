@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import ClipLoader from 'react-spinners/ClipLoader';
 import { connect } from "react-redux";
 import Navabar from "./Navbar";
 import { login } from "../redux/action-creators";

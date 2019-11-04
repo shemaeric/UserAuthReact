@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from "react";
 import avatar from "../assets/logo192.png";
-import { useHistory } from "react-router-dom";
+import user from '../assets/user-avatar.png'
 
 class Navbar extends Component {
   constructor(props) {
@@ -26,8 +26,8 @@ class Navbar extends Component {
   };
 
   render() {
-    console.log(this.props);
     const { dropdown } = this.state;
+    console.log(this.props);
     const logoutDropdown =
       dropdown === true ? "logout-dropdown" : "logout-dropdown-none";
     return (
@@ -37,8 +37,8 @@ class Navbar extends Component {
           <div className="logo">
             <img src={avatar} alt="" />
           </div>
-          <button className="user-avatar" onClick={this.dropdown}>
-            <img src={avatar} alt="" />
+          <button className={Object.keys(this.props).length === 0 ? 'hidden': 'user-avatar'} onClick={this.dropdown}>
+            <img src={user} alt="" />
           </button>
         </nav>
         ​{/* Make this a component too */}

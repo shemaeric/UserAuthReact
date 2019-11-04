@@ -1,11 +1,16 @@
 import React, { Fragment, Component } from "react";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/core";
 import { connect } from "react-redux";
 import Navabar from "./Navbar";
 import { getProfile } from "../redux/action-creators";
 
 class Profile extends Component {
+
+  state = {
+    loading: true
+  }
+
   componentDidMount() {
     const { getProfile, match } = this.props;
     const { username } = match.params;
@@ -14,7 +19,21 @@ class Profile extends Component {
 
   render() {
     if (this.props.user.user === undefined) {
-      return <h1>Hello</h1>;
+      const override = css`
+          ${{
+            display: "block;",
+            margin: "4em auto;"
+          }}
+        `;
+        return (
+          <ClipLoader
+            css={override}
+            sizeUnit={"px"}
+            size={80}
+            color={"#123abc"}
+            loading={this.state.loading}
+          />
+        );
     }
     const { email, username } = this.props.user.user;
     return (
