@@ -25,7 +25,8 @@ class Login extends Component {
       this.notifyInputs("Email and Password must not be empty");
     } else {
       await login({ email, password });
-      this.props.error === "" ? this.props.history.push("/s") : this.notifyInputs(this.props.error);
+      const username = this.props.user.user.username
+      this.props.error === "" ? this.props.history.push(`profile/${username}`) : this.notifyInputs(this.props.error);
     }
   };
 
